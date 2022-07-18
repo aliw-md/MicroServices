@@ -65,8 +65,8 @@ namespace Discount.Api.Repositories
                  (_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var affected = await connection.ExecuteAsync
-                ("UPDATE Coupon SET ProductName=@ProductName, Description=@Description, Amount=@Amount",
-                new { ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount });
+                ("UPDATE Coupon SET ProductName=@ProductName, Description=@Description, Amount=@Amount WHERE id=@CouponId",
+                new { ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount,CouponId = coupon.Id });
 
             if (affected == 0) return false;
 
