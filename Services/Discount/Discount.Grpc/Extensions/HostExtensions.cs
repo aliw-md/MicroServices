@@ -44,7 +44,7 @@ namespace Discount.Grpc.Extensions
 
                     // seed data
 
-                    command.CommandText = "INSERT INTO Coupon(ProductName, Description, Amount) VALUES ('IPhone x', 'iphone discount', 150);";
+                    command.CommandText = "INSERT INTO Coupon(ProductName, Description, Amount) VALUES ('IPhone X', 'iphone discount', 150);";
                     command.ExecuteNonQuery();
 
                     command.CommandText = "INSERT INTO Coupon(ProductName, Description, Amount) VALUES ('Samsung 10', 'samsung discount', 150);";

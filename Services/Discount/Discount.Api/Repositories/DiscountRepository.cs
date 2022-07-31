@@ -24,7 +24,7 @@ namespace Discount.Api.Repositories
         public async Task<Coupon> GetDiscount(string productName)
         {
             using var connection = new NpgsqlConnection
-                    (_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
+                  (_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var coupon = await connection.QueryFirstOrDefaultAsync<Coupon>
                 ("SELECT * FROM Coupon WHERE ProductName = @ProductName", new { ProductName = productName });
@@ -66,7 +66,7 @@ namespace Discount.Api.Repositories
 
             var affected = await connection.ExecuteAsync
                 ("UPDATE Coupon SET ProductName=@ProductName, Description=@Description, Amount=@Amount WHERE id=@CouponId",
-                new { ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount,CouponId = coupon.Id });
+                new { ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount, CouponId = coupon.Id });
 
             if (affected == 0) return false;
 
