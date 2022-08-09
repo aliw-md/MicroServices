@@ -21,7 +21,6 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
             _logger = logger;
         }
 
-
         public async Task<Unit> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
             var orderForUpdate = await _orderRepository.GetByIdAsync(request.Id);
