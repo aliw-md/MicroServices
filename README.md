@@ -5,7 +5,7 @@ A repo for microservices course + project and docs
 
 توضیحات کامل و دقیق‌تر در داکیومنت‌های زیر موجوده:
 
-لینک داکیومنت اول شامل توضیحات و مفاهیم لازم
+لینک داکیومنت اول شامل توضیحات و مفاهیم ابتدایی
 
 https://docs.google.com/document/d/1ZzyaQWX-mevZ_8TVN5q3PlmfuFcQllOxx7LAxeS-sNc/edit#
 
