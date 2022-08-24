@@ -4,6 +4,9 @@ using Basket.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
+using EventBus.Messages.Events;
+using MassTransit;
 
 namespace Basket.Api.Controllers
 {
@@ -15,11 +18,15 @@ namespace Basket.Api.Controllers
 
         private readonly IBasketRepository _basketRepository;
         private readonly DiscountGrpcService _discountService;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IMapper _mapper;
 
-        public BasketController(IBasketRepository basketRepository, DiscountGrpcService discountService)
+        public BasketController(IBasketRepository basketRepository, DiscountGrpcService discountService, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _basketRepository = basketRepository;
             _discountService = discountService;
+            _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
 
         #endregion
@@ -83,15 +90,17 @@ namespace Basket.Api.Controllers
 
 
             // create BasketCheckoutEvent -- set total price on basketCheckout event message
+            var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+            eventMessage.TotalPrice = basket.TotalPrice;
 
             // send checkout event to rabbitmq
-
+            await _publishEndpoint.Publish(eventMessage);
 
             // remove basket
             await _basketRepository.DeleteBasket(basketCheckout.UserName);
 
 
-            return Ok();
+            return Accepted();
         }
 
         #endregion

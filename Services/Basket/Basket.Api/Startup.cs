@@ -47,6 +47,7 @@ namespace Basket.Api
             });
 
             services.AddMassTransitHostedService();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
