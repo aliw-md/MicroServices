@@ -26,6 +26,5 @@ namespace Basket.Api.GrpcServices
         }
 
         #endregion
-        }
+    }
 }
- 

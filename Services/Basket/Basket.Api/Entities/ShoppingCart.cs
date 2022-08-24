@@ -9,11 +9,14 @@ namespace Basket.Api.Entities
         {
 
         }
+
         public ShoppingCart(string userName)
         {
             UserName = userName;
         }
+
         public string UserName { get; set; }
+
         public List<ShoppingCartItem> Items { get; set; }
 
         public decimal TotalPrice
@@ -21,6 +24,7 @@ namespace Basket.Api.Entities
             get
             {
                 decimal totalPrice = 0;
+                
                 if(Items != null && Items.Any())
                 {
                     foreach (ShoppingCartItem item in Items)
@@ -28,8 +32,10 @@ namespace Basket.Api.Entities
                         totalPrice += item.Price * item.Quantity;
                     }
                 }
+
                 return totalPrice;
             }
         }
+
     }
 }

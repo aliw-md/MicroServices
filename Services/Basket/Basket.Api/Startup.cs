@@ -3,16 +3,11 @@ using Basket.Api.Repositories;
 using Discount.Grpc.Protos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Basket.Api
 {
@@ -32,13 +27,17 @@ namespace Basket.Api
             {
                 options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
             });
+
             services.AddScoped<IBasketRepository, BasketRepository>();
+
             services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
                 (options =>
                 {
                     options.Address = new Uri(Configuration["GrpcSettings:DiscountUrl"]);
                 });
+
             services.AddScoped<DiscountGrpcService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
