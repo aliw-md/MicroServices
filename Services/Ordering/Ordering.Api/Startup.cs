@@ -32,6 +32,7 @@ namespace Ordering.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordering.Api", Version = "v1" });
             });
 
+            services.AddAutoMapper(typeof(Startup));
 
 
             services.AddMassTransit(config =>
@@ -48,6 +49,7 @@ namespace Ordering.Api
                 });
             });
             services.AddMassTransitHostedService();
+            services.AddScoped<BasketCheckoutConsumer>();
 
         }
 
