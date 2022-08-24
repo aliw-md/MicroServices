@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using MassTransit;
 
 namespace Basket.Api
 {
@@ -37,6 +38,15 @@ namespace Basket.Api
                 });
 
             services.AddScoped<DiscountGrpcService>();
+            services.AddMassTransit(config =>
+            {
+                config.UsingRabbitMq((ctx, conf) =>
+                {
+                    conf.Host(Configuration.GetValue<string>("EventBusSettings:HostAddress"));
+                });
+            });
+
+            services.AddMassTransitHostedService();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
